@@ -1,0 +1,10 @@
+Add support for recurring tasks to the task manager in src/taskStore.js.
+
+Requirements:
+
+addTask should accept an optional recurrence field: 'daily', 'weekly', or null (default null, meaning not recurring). Reject any other value with a thrown error, consistent with how invalid priority is currently rejected.
+When completeTask(id) is called on a task with a non-null recurrence, instead of just marking it done: true, the store should also create a new task with the same title, priority, tags, and recurrence as the original, and a dueDate advanced by one day ('daily') or seven days ('weekly') from the original task's dueDate. If the original task had no dueDate, the new task's dueDate should be null. The original completed task should remain in the store, marked done: true, exactly as completeTask currently behaves for non-recurring tasks.
+listTasks and filterByTags must continue to work unchanged for both recurring and non-recurring tasks.
+sortByPriority must continue to sort newly-created recurring tasks using the existing priority convention (high → medium → low, then creation order) — do not introduce a separate ordering rule for recurring tasks.
+
+Do not change the public signature of listTasks, filterByTags, or sortByPriority. Existing tests in test/taskStore.test.js must continue to pass.
